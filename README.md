@@ -20,9 +20,15 @@ An interactive human body muscle map component for React Native. Tap muscles, hi
 
 ## 📸 Preview
 
-| Default | Heatmap | Neon | Female |
-|---------|---------|------|--------|
-| ![default](https://placehold.co/160x260/C7C7C7/333?text=Default) | ![heatmap](https://placehold.co/160x260/FF3B30/fff?text=Heatmap) | ![neon](https://placehold.co/160x260/262626/32ADE6?text=Neon) | ![female](https://placehold.co/160x260/E0E0E0/333?text=Female) |
+### Male
+| Front — Default | Front — Heatmap | Back — Default | Back — Heatmap |
+|----------------|----------------|---------------|---------------|
+| ![Male Front Default](docs/previews/male_front_default.png) | ![Male Front Heatmap](docs/previews/male_front_heatmap.png) | ![Male Back Default](docs/previews/male_back_default.png) | ![Male Back Heatmap](docs/previews/male_back_heatmap.png) |
+
+### Female
+| Front — Default | Front — Heatmap | Back — Default | Back — Heatmap |
+|----------------|----------------|---------------|---------------|
+| ![Female Front Default](docs/previews/female_front_default.png) | ![Female Front Heatmap](docs/previews/female_front_heatmap.png) | ![Female Back Default](docs/previews/female_back_default.png) | ![Female Back Heatmap](docs/previews/female_back_heatmap.png) |
 
 ---
 
