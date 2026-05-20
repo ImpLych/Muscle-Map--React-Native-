@@ -222,36 +222,46 @@ export const BodyView: React.FC<BodyViewProps> = ({
   const svgWidth = width ?? '100%';
   const svgHeight = height ?? '100%';
 
+  // Normalize viewBox to always start at (0,0) and apply translate to paths.
+  // react-native-svg can misrender when viewBox x/y offset is non-zero,
+  // which causes the back view to appear shifted relative to the front view.
+  const normalizedViewBox = `0 0 ${viewBox.width} ${viewBox.height}`;
+  const pathTranslate = (viewBox.x !== 0 || viewBox.y !== 0)
+    ? `translate(${-viewBox.x}, ${-viewBox.y})`
+    : undefined;
+
   return (
     <View style={[styles.container, style]}>
       <Svg
         width={svgWidth}
         height={svgHeight}
-        viewBox={vbString}
+        viewBox={normalizedViewBox}
         preserveAspectRatio="xMidYMid meet"
       >
         {gradientDefs.length > 0 && <Defs>{gradientDefs}</Defs>}
-        {paths.map((part) => {
-          if (!shouldShowSlug(part.slug)) return null;
-          const f = resolveFillForSlug(part.slug);
-          const allPathStrings = [...part.common, ...part.left, ...part.right];
-          return (
-            <G key={part.slug}>
-              {allPathStrings.map((d, i) => (
-                <Path
-                  key={i}
-                  d={d}
-                  fill={f.fill}
-                  stroke={f.stroke}
-                  strokeWidth={f.strokeWidth}
-                  opacity={f.opacity}
-                  onPress={() => handlePress(part.slug)}
-                  onLongPress={() => handleLongPress(part.slug)}
-                />
-              ))}
-            </G>
-          );
-        })}
+        <G transform={pathTranslate}>
+          {paths.map((part) => {
+            if (!shouldShowSlug(part.slug)) return null;
+            const f = resolveFillForSlug(part.slug);
+            const allPathStrings = [...part.common, ...part.left, ...part.right];
+            return (
+              <G key={part.slug}>
+                {allPathStrings.map((d, i) => (
+                  <Path
+                    key={i}
+                    d={d}
+                    fill={f.fill}
+                    stroke={f.stroke}
+                    strokeWidth={f.strokeWidth}
+                    opacity={f.opacity}
+                    onPress={() => handlePress(part.slug)}
+                    onLongPress={() => handleLongPress(part.slug)}
+                  />
+                ))}
+              </G>
+            );
+          })}
+        </G>
       </Svg>
     </View>
   );
